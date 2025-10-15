@@ -14,9 +14,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-Route::get('/', function () {
-    return view('home');
-});
+Route::get('/', [\App\Http\Controllers\BookController::class, 'index'])->name('home');
 
 Route::get('/log-in', function () {
     return view('log-in');

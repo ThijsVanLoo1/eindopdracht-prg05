@@ -16,9 +16,9 @@
     <title></title>
 </head>
     <body>
-        <nav class="flex justify-end gap-4 p-4 bg-gray-700">
-            <a href="/" class="bg-blue-950 p-4 rounded-xl text-white">Home</a>
-            <a href="/log-in" class="bg-blue-950 p-4 rounded-xl text-white">Log-in</a>
+        <nav>
+            <a href="/">Home</a>
+            <a href="/log-in">Log-in</a>
         </nav>
 
         {{ $slot }}
