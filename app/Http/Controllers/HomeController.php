@@ -3,9 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Book;
+use App\Models\Review;
 use Illuminate\Http\Request;
 
-class BookController extends Controller
+class HomeController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -13,7 +14,8 @@ class BookController extends Controller
     public function index()
     {
         $books = Book::all();
-        return view('home', compact('books'));
+        $reviews = Review::all();
+        return view('home', compact('books', 'reviews'));
     }
 
     /**
@@ -21,7 +23,7 @@ class BookController extends Controller
      */
     public function create()
     {
-        //
+
     }
 
     /**
@@ -29,7 +31,12 @@ class BookController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        //validatie
+        //errors tonen
+        //beveiliging
+        //data terugschrijven in form fields
+
+        //INSERT INTO sql
     }
 
     /**
@@ -37,7 +44,7 @@ class BookController extends Controller
      */
     public function show(Book $book)
     {
-        //
+        //return view('home.show', compact('book'));
     }
 
     /**

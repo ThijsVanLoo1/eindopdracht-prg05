@@ -8,6 +8,10 @@
     --color-darkblue: #1f2937;
 }
 
+/*////////////////////////
+///      LAYOUT        ///
+////////////////////////*/
+
 body {
     margin: 0;
     background-color: var(--color-white);
@@ -29,4 +33,25 @@ nav a:hover {
     background-color: var(--color-white);
     color: var(--color-darkblue);
     transition: ease-in-out 0.2s;
+}
+
+/*////////////////////////
+///        HOME        ///
+////////////////////////*/
+
+.grid-container {
+    display: grid;
+    justify-content: center;
+    grid-template-columns: repeat(3, 200px);
+    gap: 20px;
+}
+
+.book-container {
+
+}
+
+.review-container {
+    padding: 5px;
+    margin: 10px;
+    border-left: solid var(--color-darkblue);
 }

@@ -1,7 +1,8 @@
 <?php
 
-use App\Http\Controllers\AboutController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ReviewController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/dashboard', function () {
@@ -14,10 +15,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-Route::get('/', [\App\Http\Controllers\BookController::class, 'index'])->name('home');
-
-Route::get('/log-in', function () {
-    return view('log-in');
-});
+Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::resource('/reviews', ReviewController::class);
 
 require __DIR__.'/auth.php';

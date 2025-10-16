@@ -6,5 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Book extends Model
 {
-    //
+    public function reviews(): \Illuminate\Database\Eloquent\Relations\HasMany|Book
+    {
+        return $this->hasMany(Review::class);
+    }
 }
