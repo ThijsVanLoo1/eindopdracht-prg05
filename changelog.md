@@ -1,3 +1,8 @@
+# Maandag 20 oktober:
+    Inlog & Register pagina's opgemaakt. 
+    Ook routes correct aangegeven op de juiste plaatsen.
+    Hiermee zijn deze pagina's alvast compleet.
+
 # Donderdag 16 oktober:
     Create form gemaakt met reviews. Database uitgebreid & 
     /reviews & /reviews/create routes gemaakt.
