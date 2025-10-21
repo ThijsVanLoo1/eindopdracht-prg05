@@ -1,3 +1,8 @@
+# Dinsdag 21 oktober:
+    Home pagine geupdated op basis van ingelogd of niet.
+    /reviews pagina opgemaakt & create review bijgesteld.
+    Werking van applicatie veranderd --> Boek en Review worden nu samen aangemaakt ipv apart
+
 # Maandag 20 oktober:
     Inlog & Register pagina's opgemaakt. 
     Ook routes correct aangegeven op de juiste plaatsen.

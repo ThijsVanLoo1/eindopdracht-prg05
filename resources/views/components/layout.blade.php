@@ -16,10 +16,27 @@
     <title>{{ config('app.name', 'Laravel') }}</title>
 </head>
     <body>
-        <nav>
-            <a href="/">Home</a>
-            <a href="{{ route('login') }}">Log-in</a>
-        </nav>
+        @guest
+            <nav class="not-logged-in">
+                <a href="/">Home</a>
+                <a href="{{ route('login') }}">Log-in</a>
+            </nav>
+        @endguest
+        @auth
+            <nav class="logged-in">
+                <h1>Welkom, {{ Auth::user()->name }}</h1>
+                <div class="flex-logged-in">
+                    <a href="/">Home</a>
+                    <a href="{{ route('reviews.index') }}">Mijn Reviews</a>
+                    <form method="POST" action="{{ route('logout') }}">
+                        @csrf
+                        <button type="submit">
+                            Uitloggen
+                        </button>
+                    </form>
+                </div>
+            </nav>
+        @endauth
 
         {{ $slot }}
     </body>

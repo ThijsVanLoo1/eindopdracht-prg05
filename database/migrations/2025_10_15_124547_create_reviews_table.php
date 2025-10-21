@@ -15,8 +15,8 @@ return new class extends Migration
             $table->id();
             $table->timestamps();
 
-            $table->foreignId('user_id');
-            $table->foreignId('book_id');
+            $table->foreignId('user_id')->constrained();
+            $table->foreignId('book_id')->constrained();
             $table->tinyInteger('rating');
             $table->text('comment');
         });
