@@ -7,6 +7,7 @@
             <thead>
                 <tr>
                     <th>Boek</th>
+                    <th>Boek Titel</th>
                     <th>Rating</th>
                     <th>Comment</th>
                 </tr>
@@ -14,6 +15,7 @@
             <tbody>
             @foreach($reviews as $review)
                 <tr>
+                    <td><img src="{{ $review->book->image }}" alt=""></td>
                     <td>{{ $review->book->name }}</td>
                     <td>{{ $review->rating }}</td>
                     <td>{{ $review->comment }}</td>

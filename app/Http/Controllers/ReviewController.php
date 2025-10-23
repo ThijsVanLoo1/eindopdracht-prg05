@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Book;
 use App\Models\Review;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ReviewController extends Controller
 {
@@ -32,20 +33,47 @@ class ReviewController extends Controller
      */
     public function store(Request $request)
     {
-        //validatie
+        //Validatie
         $request->validate([
-            'comment' => 'required'
+            'rating' => 'required|integer|min:1|max:5',
+            'reviewComment' => 'required|string',
+            'book_id' => 'nullable|exists:books,id',
+            'bookTitle' => 'required_without:book_id|string|max:255',
+            'author' => 'required_without:book_id|string|max:255',
+            'description' => 'nullable|string',
+            'bookImage' => 'nullable|image|max:2048',
         ]);
 
-        //INSERT INTO sql
+        //Is er een boek geselecteerd?
+        if ($request->filled('book_id')) {
+            //Ja, haal op
+            $bookId = $request->input('book_id');
+        } else {
+            //Nee, sla nieuw boek op
+            $book = new Book();
+            $book->name = $request->input('bookTitle');
+            $book->author = $request->input('author');
+            $book->description = $request->input('description');
+
+            //Afbeelding opslaan
+            if ($request->hasFile('bookImage')) {
+                $path = $request->file('bookImage')->store('book_images', 'public');
+                $book->image = $path;
+            }
+
+            $book->save();
+            $bookId = $book->id;
+        }
+
+        //Review opslaan
         $review = new Review();
-        $review->rating = 4; //Hardcoded
-        $review->comment = $request->input('comment');
-        $review->user_id = 1; //Hardcoded
-        $review->book_id = $request->input('book_id');
+        $review->rating =  $request->input('rating');
+        $review->comment = $request->input('reviewComment');
+        $review->user_id = Auth::id();
+        $review->book_id = $bookId;
 
         $review->save();
-        return redirect()->route('reviews.index');
+        return redirect()->route('reviews.index')->with('success', 'Review toegevoegd!');
     }
 
     /**

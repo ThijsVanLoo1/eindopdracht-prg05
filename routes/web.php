@@ -17,6 +17,5 @@ Route::middleware('auth')->group(function () {
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::resource('/reviews', ReviewController::class);
-//Route::resource('/books', BookController::class);
 
 require __DIR__.'/auth.php';

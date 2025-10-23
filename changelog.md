@@ -1,3 +1,8 @@
+# Donderdag 23 oktober:
+    Create review (& book ineen) afgemaakt. Add image werkt nu ook.
+    Home pagina CSS opmaak bijgewerkt nu er een image wordt ingeladen. 
+    Validatie create-pagina ook afgerondt.
+
 # Dinsdag 21 oktober:
     Home pagine geupdated op basis van ingelogd of niet.
     /reviews pagina opgemaakt & create review bijgesteld.

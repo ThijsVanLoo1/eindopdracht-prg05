@@ -1,22 +1,41 @@
 <x-layout>
     <x-slot name="script">
-        ''
+        resources/js/create.js
     </x-slot>
-    <form action="{{ route('reviews.store') }}" method="POST" class="create-review-container">
+    <form action="{{ route('reviews.store') }}" method="POST" enctype="multipart/form-data" class="create-review-container">
         @csrf
 
         <h2>Maak nieuwe Review</h2>
 
+        <div class="book-choice">
+            <label for="book_id">Kies bestaand boek:</label>
+            <select name="book_id" id="book_id" class="input-field">
+                <option value="">-- Nieuw boek toevoegen --</option>
+                @foreach($books as $book)
+                    <option value="{{ $book->id }}">{{ $book->name }} ({{ $book->author }})</option>
+                @endforeach
+            </select>
+        </div>
+
         <div class="form-items">
-            <div class="book-details">
-                <label for="bookTitle">Boek Titel:</label>
+            <div class="book-details" id="createBookField">
+                <label for="bookTitle">Boek titel:</label>
                 <input type="text" id="bookTitle" name="bookTitle" class="input-field">
+                @error('bookTitle')
+                <span class="error">{{ $message }}</span>
+                @enderror
 
                 <label for="author">Schrijver:</label>
                 <input type="text" id="author" name="author" class="input-field">
+                @error('author')
+                <span class="error">{{ $message }}</span>
+                @enderror
 
                 <label for="description">Beschrijving:</label>
                 <textarea id="description" name="description" class="input-field"></textarea>
+                @error('description')
+                <span class="error">{{ $message }}</span>
+                @enderror
 
                 <label for="bookImage">Afbeelding</label>
                 <input type="file" id="bookImage" name="bookImage">
@@ -36,22 +55,15 @@
                     <input type="radio" name="rating" id="r5" value="5" />
                     <label for="r5">5</label>
                 </div>
+                @error('rating')
+                <span class="error">{{ $message }}</span>
+                @enderror
 
                 <label for="reviewComment">Toelichting:</label>
                 <textarea id="reviewComment" name="reviewComment" class="input-field"></textarea>
-
-            <!-- <label for="comment">Comment</label>
-            <input id="comment" name="comment" type="text" value="{{ old('comment') }}">
-            @error('comment')
-            <div class="alert alert-danger">{{ $message }}</div>
-            @enderror
-
-            <label for="book_id">Boek</label>
-            <select name="book_id" id="book_id">
-                @foreach($books as $book)
-                    <option value="{{ $book->id }}">{{ $book->name }}</option>
-                @endforeach
-            </select> -->
+                @error('reviewComment')
+                <span class="error">{{ $message }}</span>
+                @enderror
 
                 <input type="submit" name="submit" value="Create">
             </div>
