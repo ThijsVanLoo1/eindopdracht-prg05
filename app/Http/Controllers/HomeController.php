@@ -13,9 +13,17 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $books = Book::all();
-        $reviews = Review::all();
-        return view('home', compact('books', 'reviews'));
+        //Haal boeken op met tenminste 1 actieve review
+        $books = Book::whereHas('reviews', function ($query) {
+            $query->where('active', true);
+        })
+            //Laad die reviews ook gelijk
+            ->with(['reviews' => function ($query) {
+                $query->where('active', true);
+            }])
+            ->get();
+
+        return view('home', compact('books'));
     }
 
     /**
@@ -44,7 +52,7 @@ class HomeController extends Controller
      */
     public function show(Book $book)
     {
-        //return view('home.show', compact('book'));
+        //
     }
 
     /**

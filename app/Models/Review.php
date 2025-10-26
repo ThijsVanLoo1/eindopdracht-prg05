@@ -10,4 +10,9 @@ class Review extends Model
     {
         return $this->belongsTo(Book::class);
     }
+
+    public function getActiveLabelAttribute(): string
+    {
+        return $this->active ? 'Actief' : 'Inactief';
+    }
 }

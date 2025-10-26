@@ -17,5 +17,6 @@ Route::middleware('auth')->group(function () {
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::resource('/reviews', ReviewController::class);
+Route::post('/reviews/{review}/toggle', [ReviewController::class, 'toggle'])->name('reviews.toggle');
 
 require __DIR__.'/auth.php';

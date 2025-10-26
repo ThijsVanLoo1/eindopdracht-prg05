@@ -1,3 +1,8 @@
+# Zondag 26 oktober:
+    Toggle active of inactive van gemaakte reviews gemaakt dmv ajax request.
+    Home pagina aangepast, zodat alleen actieve reviews en bijbehorende boeken worden ingeladen.
+    Wat kleine CSS aanpassingen aan o.a. de nav balk & de /reviews pagina.
+
 # Donderdag 23 oktober:
     Create review (& book ineen) afgemaakt. Add image werkt nu ook.
     Home pagina CSS opmaak bijgewerkt nu er een image wordt ingeladen. 

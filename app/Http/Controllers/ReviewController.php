@@ -108,4 +108,17 @@ class ReviewController extends Controller
     {
         //
     }
+
+    public function toggle(\App\Models\Review $review)
+    {
+        $review->active = !$review->active;
+        $review->save();
+
+        //.then(data) in read.js krijgt deze json binnen
+        return response()->json([
+            'success' => true,
+            'active' => $review->active,
+            'label' => $review->active ? 'Actief' : 'Inactief',
+        ]);
+    }
 }

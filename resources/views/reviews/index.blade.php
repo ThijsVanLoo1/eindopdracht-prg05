@@ -1,6 +1,6 @@
 <x-layout>
     <x-slot name="script">
-        ''
+        resources/js/read.js
     </x-slot>
     <div class="flex-center">
         <table>
@@ -9,7 +9,9 @@
                     <th>Boek</th>
                     <th>Boek Titel</th>
                     <th>Rating</th>
-                    <th>Comment</th>
+                    <th>Actief</th>
+                    <th>Edit</th>
+                    <th>Delete</th>
                 </tr>
             </thead>
             <tbody>
@@ -17,8 +19,14 @@
                 <tr>
                     <td><img src="{{ $review->book->image }}" alt=""></td>
                     <td>{{ $review->book->name }}</td>
-                    <td>{{ $review->rating }}</td>
-                    <td>{{ $review->comment }}</td>
+                    <td>{{ $review->rating }}/5</td>
+                    <td>
+                        <button class="toggle-btn {{ $review->active ? 'active' : '' }}" data-id="{{ $review->id }}">
+                            {{ $review->active_label }}
+                        </button>
+                    </td>
+                    <td><a class="edit-btn" href="">Bewerken</a></td>
+                    <td><a class="delete-btn" href="">Verwijderen</a></td>
                 </tr>
             @endforeach
             </tbody>
