@@ -88,25 +88,34 @@ class ReviewController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Review $review)
     {
-
+        return view('reviews.edit', compact('review'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Review $review)
     {
-        //
+        $request->validate([
+            'rating' => 'required|integer|min:1|max:5',
+            'review' => 'required|string'
+        ]);
+
+        $review->rating =  $request->input('rating');
+        $review->comment = $request->input('review');
+
+        $review->save();
+        return redirect()->route('reviews.index');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Review $review)
     {
-        //
+
     }
 
     public function toggle(\App\Models\Review $review)

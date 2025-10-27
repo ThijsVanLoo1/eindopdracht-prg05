@@ -278,6 +278,7 @@ td a {
     color: var(--color-white);
     border: solid 2px;
     border-radius: 10px;
+    cursor: pointer;
 }
 
 .create-button:hover {
@@ -319,6 +320,20 @@ td a {
 }
 
 .review-details {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.profile-section {
+    display: flex;
+    flex-direction: column;
+
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.flex-column {
     display: flex;
     flex-direction: column;
     gap: 10px;

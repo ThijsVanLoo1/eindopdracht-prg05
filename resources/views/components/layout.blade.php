@@ -28,7 +28,7 @@
                 <div class="flex-logged-in">
                     <a href="/">Home</a>
                     <a href="{{ route('reviews.index') }}">Mijn Reviews</a>
-                    <a href="">Account</a>
+                    <a href="{{ route('profile.edit') }}">Account</a>
                     <form method="POST" action="{{ route('logout') }}" style="text-decoration: none">
                         @csrf
                         <button type="submit">

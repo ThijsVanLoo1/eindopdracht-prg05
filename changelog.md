@@ -1,6 +1,10 @@
+# Maandag 27 oktober:
+    Edit pagina toegevoegd aan de CRUD van reviews. Simpele layout en is functioneel.
+    Kleine aanpassingen aan algemene vormgeving van enkele pagina's.
+
 # Zondag 26 oktober:
     Toggle active of inactive van gemaakte reviews gemaakt dmv ajax request.
-    Home pagina aangepast, zodat alleen actieve reviews en bijbehorende boeken worden ingeladen.
+    HomeController aangepast, zodat alleen actieve reviews en bijbehorende boeken worden ingeladen.
     Wat kleine CSS aanpassingen aan o.a. de nav balk & de /reviews pagina.
 
 # Donderdag 23 oktober:
