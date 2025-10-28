@@ -1,3 +1,8 @@
+# Dinsdag 28 oktober:
+    Added delete, finalized CRUD.
+    Started with admin/user logic.
+    Small changes to CSS at several places and small fixes elsewhere.
+
 # Maandag 27 oktober:
     Edit pagina toegevoegd aan de CRUD van reviews. Simpele layout en is functioneel.
     Kleine aanpassingen aan algemene vormgeving van enkele pagina's.

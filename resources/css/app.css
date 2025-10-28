@@ -79,7 +79,7 @@ body {
 .grid-container {
     display: grid;
     justify-content: center;
-    grid-template-columns: repeat(3, 200px);
+    grid-template-columns: repeat(3, 300px);
     gap: 20px;
 }
 
@@ -98,7 +98,10 @@ body {
     padding: 5px;
     margin: 10px;
     border-left: solid var(--color-darkblue);
+    align-self: stretch;
+}
 
+.cut-text {
     /* Afkappen tekst */
     display: -webkit-box;
     -webkit-line-clamp: 2;
@@ -244,6 +247,10 @@ td a {
 }
 
 .delete-btn {
+    all:unset;
+    padding: 10px;
+    border-radius: 10px;
+    border: 1px solid var(--color-darkblue);
     background-color: var(--color-red);
     color: var(--color-white);
 }
@@ -252,6 +259,7 @@ td a {
     background-color: var(--color-white);
     color: var(--color-darkblue);
     transition: 0.2s ease-in-out;
+    cursor: pointer;
 }
 
 .toggle-btn {

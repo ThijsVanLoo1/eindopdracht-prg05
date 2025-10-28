@@ -14,7 +14,7 @@ class ReviewController extends Controller
      */
     public function index()
     {
-        $reviews = Review::with('book')->get();
+        $reviews = Review::with('book')->where('user_id', auth()->id())->get();
         return view('reviews.index', compact('reviews'));
     }
 
@@ -115,7 +115,8 @@ class ReviewController extends Controller
      */
     public function destroy(Review $review)
     {
-
+        $review->delete();
+        return redirect()->route('reviews.index');
     }
 
     public function toggle(\App\Models\Review $review)

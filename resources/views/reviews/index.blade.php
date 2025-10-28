@@ -26,7 +26,11 @@
                         </button>
                     </td>
                     <td><a class="edit-btn" href="{{ route('reviews.edit', $review) }}">Bewerken</a></td>
-                    <td><a class="delete-btn" href="">Verwijderen</a></td>
+                    <td><form action="{{ route('reviews.destroy', $review) }}" method="POST" onsubmit="return confirm('Weet je het zeker?')">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="delete-btn">Verwijderen</button>
+                        </form></td>
                 </tr>
             @endforeach
             </tbody>
