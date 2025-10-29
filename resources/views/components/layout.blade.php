@@ -25,17 +25,19 @@
         @auth
             <nav class="logged-in">
                 <h1>Welkom, {{ Auth::user()->name }}</h1>
-                <div class="flex-logged-in">
-                    <a href="/">Home</a>
-                    <a href="{{ route('reviews.index') }}">Mijn Reviews</a>
-                    <a href="{{ route('profile.edit') }}">Account</a>
-                    <form method="POST" action="{{ route('logout') }}" style="text-decoration: none">
-                        @csrf
-                        <button type="submit">
-                            Uitloggen
-                        </button>
-                    </form>
-                </div>
+                    <div class="flex-logged-in">
+                        <a href="/">Home</a>
+                        @cannot('admin-access')
+                        <a href="{{ route('reviews.index') }}">Mijn Reviews</a>
+                        <a href="{{ route('profile.edit') }}">Account</a>
+                        @endcannot
+                        <form method="POST" action="{{ route('logout') }}" style="text-decoration: none">
+                            @csrf
+                            <button type="submit">
+                                Uitloggen
+                            </button>
+                        </form>
+                    </div>
             </nav>
         @endauth
 

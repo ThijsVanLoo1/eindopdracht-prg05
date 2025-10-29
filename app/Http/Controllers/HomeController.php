@@ -17,9 +17,9 @@ class HomeController extends Controller
         $books = Book::whereHas('reviews', function ($query) {
             $query->where('active', true);
         })
-            //Laad die reviews ook gelijk
+            //Laad die reviews ook gelijk --> Maar eentje nodig
             ->with(['reviews' => function ($query) {
-                $query->where('active', true);
+                $query->where('active', true)->limit(1)->with('user');
             }])
             ->get();
 

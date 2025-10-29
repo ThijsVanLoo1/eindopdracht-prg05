@@ -17,7 +17,7 @@
             <tbody>
             @foreach($reviews as $review)
                 <tr>
-                    <td><img src="{{ $review->book->image }}" alt="{{ $review->book->name }}"></td>
+                    <td><img src="{{ $review->book->image ? asset('storage/' . $review->book->image) : asset('storage/book_images/default-book.png') }}" alt="{{ $review->book->name }}"></td>
                     <td>{{ $review->book->name }}</td>
                     <td>{{ $review->rating }}/5</td>
                     <td>

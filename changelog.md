@@ -1,3 +1,8 @@
+# Woensdag 29 oktober:
+    Finalized admin role with Gate. Dashboard now views all registered users.
+    Added detailpage for specific books with all reviews shown.
+    Started with searchbar logic -> will work further on tomorrow
+
 # Dinsdag 28 oktober:
     Added delete, finalized CRUD.
     Started with admin/user logic.

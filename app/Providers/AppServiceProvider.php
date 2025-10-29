@@ -23,5 +23,9 @@ class AppServiceProvider extends ServiceProvider
         Gate::define('admin-access', function($user) {
             return $user->isAdmin;
         });
+
+        Gate::define('review-access', function ($user, $review) {
+            return $user->id === $review->user_id;
+        });
     }
 }
