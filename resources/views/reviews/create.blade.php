@@ -1,7 +1,5 @@
 <x-layout>
-    <x-slot name="script">
-        resources/js/create.js
-    </x-slot>
+    @vite('resources/js/create.js')
     <form action="{{ route('reviews.store') }}" method="POST" enctype="multipart/form-data" class="create-review-container">
         @csrf
 
@@ -19,6 +17,14 @@
 
         <div class="form-items">
             <div class="book-details" id="createBookField">
+                <label for="genre_id">Kies genre:</label>
+                <select name="genre_id" class="input-field" style="margin-bottom: 10px">
+                    <option value="">-- Kies een genre --</option>
+                    @foreach ($genres as $genre)
+                        <option value="{{ $genre->id }}">{{ $genre->name }}</option>
+                    @endforeach
+                </select>
+
                 <label for="bookTitle">Boek titel:</label>
                 <input type="text" id="bookTitle" name="bookTitle" class="input-field">
                 @error('bookTitle')

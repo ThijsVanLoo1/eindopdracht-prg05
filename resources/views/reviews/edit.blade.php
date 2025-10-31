@@ -1,7 +1,4 @@
 <x-layout>
-    <x-slot name="script">
-        ''
-    </x-slot>
     <form action="{{ route('reviews.update', $review) }}" method="POST" enctype="multipart/form-data" class="create-review-container">
         @csrf
         @method('PUT')

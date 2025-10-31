@@ -1,8 +1,14 @@
 <x-layout>
-    <x-slot name="script">
-        ''
-    </x-slot>
+    <header class="home-header">
+        <div class="overlay">
+            <h1>BookBanter</h1>
+        </div>
+    </header>
     <main>
+        <form method="GET" action="{{ route('home.search') }}" class="search-bar">
+            <input type="text" name="query" value="{{ old('query', $query ?? '') }}" placeholder="Zoek boek of auteur..." class="input-field">
+            <button type="submit" class="create-button">Zoek</button>
+        </form>
         <div class="grid-container">
             @foreach($books as $book)
                 <div class="book-container">

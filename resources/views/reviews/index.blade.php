@@ -1,7 +1,5 @@
 <x-layout>
-    <x-slot name="script">
-        resources/js/read.js
-    </x-slot>
+    @vite('resources/js/read.js')
     <div class="flex-center">
         <table>
             <thead>

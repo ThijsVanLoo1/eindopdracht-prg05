@@ -14,13 +14,14 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::get('/search', [HomeController::class, 'search'])->name('home.search');
+
 Route::resource('/reviews', ReviewController::class)->middleware(['auth', 'verified']);
 Route::post('/reviews/{review}/toggle', [ReviewController::class, 'toggle'])->name('reviews.toggle');
 
 Route::delete('dashboard/{user}/destroy', [DashboardController::class, 'destroy'])->name('dashboard.destroy');
+Route::delete('dashboard/destroy/{book}', [BookController::class, 'destroy'])->name('book.destroy');
 Route::get('/details/{book}', [BookController::class, 'show'])->name('details');
 Route::get('/dashboard', [DashboardController::class, 'show'])->can('admin-access')->name('dashboard');
-
-Route::get('/search', [SearchController::class, 'index'])->name('search');
 
 require __DIR__.'/auth.php';

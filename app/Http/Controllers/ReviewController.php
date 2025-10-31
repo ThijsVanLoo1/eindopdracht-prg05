@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Book;
+use App\Models\Genre;
 use App\Models\Review;
+use Gate;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -25,7 +27,8 @@ class ReviewController extends Controller
     {
         //For dropdown menu
         $books = Book::all();
-        return view('reviews.create', compact('books'));
+        $genres = Genre::all();
+        return view('reviews.create', compact('books', 'genres'));
     }
 
     /**
@@ -51,6 +54,7 @@ class ReviewController extends Controller
         } else {
             //Nee, sla nieuw boek op
             $book = new Book();
+            $book->genre = $request->input('genre_id');
             $book->name = $request->input('bookTitle');
             $book->author = $request->input('author');
             $book->description = $request->input('description');
@@ -81,7 +85,7 @@ class ReviewController extends Controller
      */
     public function show(Review $review)
     {
-        //Mag niet
+        //Doet niets, dus mag niet
         abort(404);
     }
 
@@ -90,6 +94,7 @@ class ReviewController extends Controller
      */
     public function edit(Review $review)
     {
+        Gate::authorize('review-access', $review);
         return view('reviews.edit', compact('review'));
     }
 
@@ -115,6 +120,8 @@ class ReviewController extends Controller
      */
     public function destroy(Review $review)
     {
+        Gate::authorize('review-access', $review);
+
         $review->delete();
         return redirect()->route('reviews.index');
     }

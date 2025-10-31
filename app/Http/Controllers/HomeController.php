@@ -20,62 +20,25 @@ class HomeController extends Controller
             //Laad die reviews ook gelijk --> Maar eentje nodig
             ->with(['reviews' => function ($query) {
                 $query->where('active', true)->limit(1)->with('user');
-            }])
+            }])->inRandomOrder()
             ->get();
 
         return view('home', compact('books'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+    public function search(Request $request)
     {
+        $query = $request->input('query');
 
-    }
+        $books = Book::when($query, function ($queryBuilder, $query) {
+            $queryBuilder->where(function ($q) use ($query) {
+                // WHERE (name LIKE '%$input%' OR author LIKE '%$input%')
+                $q->where('name', 'like', '%' . $query . '%')
+                    ->orWhere('author', 'like', '%' . $query . '%');
+            });
+        })->get();
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //validatie
-        //errors tonen
-        //beveiliging
-        //data terugschrijven in form fields
-
-        //INSERT INTO sql
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(Book $book)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Book $book)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Book $book)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Book $book)
-    {
-        //
+        return view('home', compact('books', 'query'));
     }
 }
+

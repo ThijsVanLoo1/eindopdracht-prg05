@@ -1,9 +1,8 @@
+@php use App\Models\Book;use App\Models\Review; @endphp
 <x-layout>
-    <x-slot name="script">
-        ''
-    </x-slot>
-    <main>
-        <div class="flex-center">
+    <main class="flex-dashboard">
+        <section>
+            <h1>Gebruikers</h1>
             <table>
                 <thead>
                 <tr>
@@ -11,7 +10,7 @@
                     <th>Users</th>
                     <th>Email</th>
                     <th>Reviews</th>
-                    <th>Delete</th>
+                    <th></th>
                 </tr>
                 </thead>
                 <tbody>
@@ -20,21 +19,53 @@
                         <td>{{ $user->id }}</td>
                         <td>{{ $user->name }}</td>
                         <td>{{ $user->email }}</td>
-                        <td>{{ \App\Models\Review::where('user_id', $user->id)->get()->count() }}</td>
+                        <td>{{ Review::where('user_id', $user->id)->get()->count() }}</td>
                         @if(!$user->isAdmin)
+                            <td>
+                                <form action="{{ route('dashboard.destroy', $user->id) }}" method="POST"
+                                      onsubmit="return confirm('Weet je het zeker?')">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="delete-btn">Verwijderen</button>
+                                </form>
+                            </td>
+                        @endif
+                    </tr>
+                @endforeach
+                </tbody>
+            </table>
+        </section>
+        <section>
+            <h1>Boeken</h1>
+            <table>
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Boektitel</th>
+                    <th>Auteur</th>
+                    <th>Laatst bewerkt</th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                @foreach($books as $book)
+                    <tr>
+                        <td>{{ $book->id }}</td>
+                        <td>{{ $book->name }}</td>
+                        <td>{{ $book->author }}</td>
+                        <td>{{ $book->updated_at }}</td>
                         <td>
-                            <form action="{{ route('dashboard.destroy', $user->id) }}" method="POST" onsubmit="return confirm('Weet je het zeker?')">
+                            <form action="{{ route('book.destroy', $book->id) }}" method="POST"
+                                  onsubmit="return confirm('Weet je het zeker?')">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="delete-btn">Verwijderen</button>
                             </form>
                         </td>
-                        @endif
-                        <td></td>
                     </tr>
                 @endforeach
                 </tbody>
             </table>
-        </div>
+        </section>
     </main>
 </x-layout>

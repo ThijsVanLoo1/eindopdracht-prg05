@@ -1,3 +1,9 @@
+# Vrijdag 31 oktober:
+    Added books to dashboard overview -> can now also be deleted by admin.
+    Updated home page with a header for styling purposes.
+    Completely changed, but also completed search bar on home page -> can now look up book titles or authors.
+    Started on filtering on genre; will work further on tomorrow.
+
 # Woensdag 29 oktober:
     Finalized admin role with Gate. Dashboard now views all registered users.
     Added detailpage for specific books with all reviews shown.

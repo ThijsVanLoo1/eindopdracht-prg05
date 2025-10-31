@@ -1,7 +1,4 @@
 <x-layout>
-    <x-slot name="script">
-        ''
-    </x-slot>
     <main>
         <section class="detail-container">
             <div>
