@@ -25,10 +25,17 @@ class ReviewController extends Controller
      */
     public function create()
     {
+        //Diepere validatie
+        $user = Auth::user();
+        $reviewCount = $user ? $user->reviews()->count() : 0;
+        $requiredReviews = 3;
+
+        $canAddNewBook = $reviewCount >= $requiredReviews;
+
         //For dropdown menu
         $books = Book::all();
         $genres = Genre::all();
-        return view('reviews.create', compact('books', 'genres'));
+        return view('reviews.create', compact('books', 'genres', 'canAddNewBook', 'requiredReviews', 'reviewCount'));
     }
 
     /**
@@ -41,11 +48,25 @@ class ReviewController extends Controller
             'rating' => 'required|integer|min:1|max:5',
             'reviewComment' => 'required|string',
             'book_id' => 'nullable|exists:books,id',
+            'genre_id' => 'nullable|exists:genres,id',
             'bookTitle' => 'required_without:book_id|string|max:255',
             'author' => 'required_without:book_id|string|max:255',
             'description' => 'nullable|string',
             'bookImage' => 'nullable|image|max:2048',
         ]);
+
+        //Diepere validatie: heeft de gebruiker al 3 reviews geschreven voor bestaande boeken voordat deze een nieuw boek mag toevoegen?
+        if (!$request->filled('book_id')) {
+            //SELECT * FROM reviews WHERE user_id = {ingelogde gebruiker} -> en tel hoeveel
+            $reviewCount = Review::where('user_id', Auth::id())->count();
+            $requiredReviews = 3;
+
+            if ($reviewCount < $requiredReviews) {
+                return back()->withErrors([
+                    'bookTitle' => "Je moet minstens {$requiredReviews} reviews hebben geschreven voordat je een nieuw boek kunt toevoegen."
+                ])->withInput();
+            }
+        }
 
         //Is er een boek geselecteerd?
         if ($request->filled('book_id')) {
@@ -67,6 +88,20 @@ class ReviewController extends Controller
 
             $book->save();
             $bookId = $book->id;
+        }
+
+        //EXTRA CHECK: Controleer of gebruiker niet al een review heeft geschreven voor het gekozen boek
+
+        //SELECT * FROM reviews WHERE user_id = {ingelogde gebruiker} AND WHERE book_id = {geselecteerde boek}
+        $existingReview = Review::where('user_id', Auth::id())
+            ->where('book_id', $bookId)
+            ->first();
+
+        //Deze bestaat, dus herlaadt pagina
+        if ($existingReview) {
+            return back()->withErrors([
+                'book_id' => 'Je hebt al een review geschreven voor dit boek!'
+            ])->withInput();
         }
 
         //Review opslaan

@@ -8,43 +8,58 @@
         <div class="book-choice">
             <label for="book_id">Kies bestaand boek:</label>
             <select name="book_id" id="book_id" class="input-field">
-                <option value="">-- Nieuw boek toevoegen --</option>
+                <option value="">-- --</option>
                 @foreach($books as $book)
                     <option value="{{ $book->id }}">{{ $book->name }} ({{ $book->author }})</option>
                 @endforeach
             </select>
+            @error('book_id')
+            <span class="error">{{ $message }}</span>
+            @enderror
         </div>
 
         <div class="form-items">
             <div class="book-details" id="createBookField">
-                <label for="genre_id">Kies genre:</label>
-                <select name="genre_id" class="input-field" style="margin-bottom: 10px">
-                    <option value="">-- Kies een genre --</option>
-                    @foreach ($genres as $genre)
-                        <option value="{{ $genre->id }}">{{ $genre->name }}</option>
-                    @endforeach
-                </select>
+                <h3>Nieuw boek toevoegen</h3>
+                <!-- DIEPERE VALIDATIE: Heeft de gebruiker meer dan 3 reviews geschreven? -->
+                @if($canAddNewBook)
+                    <label for="genre_id">Kies genre:</label>
+                    <select name="genre_id" class="input-field" style="margin-bottom: 10px">
+                        <option value="">-- Kies een genre --</option>
+                        @foreach ($genres as $genre)
+                            <option value="{{ $genre->id }}">{{ $genre->name }}</option>
+                        @endforeach
+                    </select>
 
-                <label for="bookTitle">Boek titel:</label>
-                <input type="text" id="bookTitle" name="bookTitle" class="input-field">
-                @error('bookTitle')
-                <span class="error">{{ $message }}</span>
-                @enderror
+                    <label for="bookTitle">Boek titel:</label>
+                    <input type="text" id="bookTitle" name="bookTitle" class="input-field">
+                    @error('bookTitle')
+                    <span class="error">{{ $message }}</span>
+                    @enderror
 
-                <label for="author">Schrijver:</label>
-                <input type="text" id="author" name="author" class="input-field">
-                @error('author')
-                <span class="error">{{ $message }}</span>
-                @enderror
+                    <label for="author">Schrijver:</label>
+                    <input type="text" id="author" name="author" class="input-field">
+                    @error('author')
+                    <span class="error">{{ $message }}</span>
+                    @enderror
 
-                <label for="description">Beschrijving:</label>
-                <textarea id="description" name="description" class="input-field"></textarea>
-                @error('description')
-                <span class="error">{{ $message }}</span>
-                @enderror
+                    <label for="description">Beschrijving:</label>
+                    <textarea id="description" name="description" class="input-field"></textarea>
+                    @error('description')
+                    <span class="error">{{ $message }}</span>
+                    @enderror
 
-                <label for="bookImage">Afbeelding</label>
-                <input type="file" id="bookImage" name="bookImage">
+                    <label for="bookImage">Afbeelding</label>
+                    <input type="file" id="bookImage" name="bookImage">
+
+                @else
+                    <div class="warning">
+                        <strong>Let op:</strong> Je hebt momenteel {{ $reviewCount }} reviews geschreven.<br>
+                        Je moet minstens {{ $requiredReviews }} reviews hebben voordat je een nieuw boek kunt toevoegen.
+                    </div>
+
+                    <p class="suggestion">Je kunt nog wel een review schrijven voor een bestaand boek hierboven</p>
+                @endif
             </div>
 
             <div class="review-details">
@@ -70,7 +85,6 @@
                 @error('reviewComment')
                 <span class="error">{{ $message }}</span>
                 @enderror
-
                 <input type="submit" name="submit" value="Create">
             </div>
         </div>

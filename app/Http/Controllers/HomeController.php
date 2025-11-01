@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Book;
+use App\Models\Genre;
 use App\Models\Review;
 use Illuminate\Http\Request;
 
@@ -23,22 +24,37 @@ class HomeController extends Controller
             }])->inRandomOrder()
             ->get();
 
-        return view('home', compact('books'));
+        //Haal alle genres op om op te filteren
+        $genres = Genre::all();
+
+        return view('home', compact('books', 'genres'));
     }
 
     public function search(Request $request)
     {
         $query = $request->input('query');
+        $genreId = $request->input('genre_id');
 
-        $books = Book::when($query, function ($queryBuilder, $query) {
-            $queryBuilder->where(function ($q) use ($query) {
-                // WHERE (name LIKE '%$input%' OR author LIKE '%$input%')
-                $q->where('name', 'like', '%' . $query . '%')
-                    ->orWhere('author', 'like', '%' . $query . '%');
-            });
-        })->get();
+        $books = Book::query()
+            //Zoekbalk maakt query aan die filtert op Boek modellen
+            ->when($query, function ($queryBuilder, $query) {
+                $queryBuilder->where(function ($q) use ($query) {
+                    //WHERE name LIKE '%$input%' OR author LIKE '%$input%'
+                    $q->where('name', 'like', '%' . $query . '%')
+                        ->orWhere('author', 'like', '%' . $query . '%');
+                });
+            })
+            //Wanneer er een genre is geselecteerd om op te filteren
+            ->when($genreId, function ($queryBuilder, $genreId) {
+                //WHERE genre_id IS $genreId
+                $queryBuilder->where('genre', $genreId);
+            })
+            ->get();
 
-        return view('home', compact('books', 'query'));
+        //Nieuwe pagina moet ook alle genres hebben om opnieuw te kunnen filteren
+        $genres = Genre::all();
+
+        return view('home', compact('books', 'query', 'genres', 'genreId'));
     }
 }
 

@@ -5,8 +5,20 @@
         </div>
     </header>
     <main>
-        <form method="GET" action="{{ route('home.search') }}" class="search-bar">
-            <input type="text" name="query" value="{{ old('query', $query ?? '') }}" placeholder="Zoek boek of auteur..." class="input-field">
+        <form method="GET" action="{{ route('home.search') }}" class="filter-container">
+            <div class="search-bar">
+                <input type="text" name="query" value="{{ old('query', $query ?? '') }}" placeholder="Zoek boek of auteur..." class="input-field">
+            </div>
+            <div class="">
+                <select name="genre_id" id="genre_id" class="input-field">
+                    <option value="">-- Kies Genre --</option>
+                    @foreach($genres as $genre)
+                        <option value="{{ $genre->id }}" {{ (isset($genreId) && $genreId == $genre->id) ? 'selected' : '' }}>
+                            {{ $genre->name }}
+                        </option>
+                    @endforeach
+                </select>
+            </div>
             <button type="submit" class="create-button">Zoek</button>
         </form>
         <div class="grid-container">

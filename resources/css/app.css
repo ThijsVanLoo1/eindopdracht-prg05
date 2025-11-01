@@ -139,16 +139,17 @@ body {
     overflow: hidden;
 }
 
-.search-bar {
+.filter-container {
     display: flex;
-    justify-content: center;
     align-items: center;
-    gap: 5px;
-    max-width: 300px;
-    margin: 20px 19vw;
+    margin: 10px 290px;
 }
 
-.search-bar button {
+.search-bar {
+    max-width: 300px;
+}
+
+.filter-container button {
     margin-bottom: 0;
 }
 /*////////////////////////
@@ -387,6 +388,19 @@ td a {
     display: flex;
     flex-direction: column;
     gap: 10px;
+}
+
+.warning {
+    background-color: var(--color-red);
+    color: var(--color-white);
+    padding: 5px;
+    border-radius: 10px;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);
+}
+
+.suggestion {
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    text-align: center;
 }
 
 /*////////////////////////

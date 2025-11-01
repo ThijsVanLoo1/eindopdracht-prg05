@@ -1,3 +1,9 @@
+# Zaterdag 1 november:
+    Finalized filtering on genre -> now works with the search bar, so user can use both at the same time.
+    Added eloquent count -> user has to have at least 3 reviews written before they can add a book themselves.
+    Changed create form of review to give user input whether or not they can add a new book.
+    Application is now ready to submit for assignment.
+
 # Vrijdag 31 oktober:
     Added books to dashboard overview -> can now also be deleted by admin.
     Updated home page with a header for styling purposes.
